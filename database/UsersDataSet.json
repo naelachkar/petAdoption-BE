@@ -1,0 +1,18 @@
+[
+  {
+    "firstName": "Criquette",
+    "lastName": "Rockwell",
+    "phoneNumber": "0678912345",
+    "email": "criquette@yahoo.com",
+    "password": "aze",
+    "bio": ""
+  },
+  {
+    "firstName": "Naël",
+    "lastName": "Achkar",
+    "phoneNumber": "0665036868",
+    "email": "naelachkar@hotmail.fr",
+    "password": "aze123",
+    "bio": ""
+  }
+]
