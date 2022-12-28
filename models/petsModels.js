@@ -1,16 +1,10 @@
-const fs = require("fs");
-const path = require("path");
+const mongoose = require("mongoose");
 
-const pathToPetDB = path.resolve(__dirname, "../database/PetsDataSet.json");
+const petSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+});
 
-function getAllPets() {
-  try {
-    const allPets = fs.readFileSync(pathToPetDB);
-    const petList = JSON.parse(allPets);
-    return petList;
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-module.exports = { getAllPets };
+module.exports = mongoose.model("pets", petSchema, "pets");
