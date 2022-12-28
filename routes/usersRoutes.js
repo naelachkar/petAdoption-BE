@@ -1,12 +1,13 @@
 const fs = require("fs");
 const express = require("express");
+const Users = require("../models/usersModels")
 
 const router = express.Router();
 
-router.post("/login", (req, res) => {
+router.post("/", async (req, res) => {
   const user = req.body;
   try {
-    const users = JSON.parse(fs.readFileSync("./database/UsersDataSet.json"));
+    const users = await Users.find();
     const foundUser = users.find((item) => item.email === user.email);
     console.log(foundUser);
     if (foundUser) {
@@ -18,7 +19,7 @@ router.post("/login", (req, res) => {
           email: foundUser.email,
           bio: foundUser.bio,
         };
-        res.send(userInfo);
+        res.json(userInfo);
       } else {
         res.status(500).send(false);
       }

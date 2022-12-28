@@ -20,9 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/pets", petsRoutes)
-
-// app.post("/login", usersRoutes);
-// app.get("/pets", petsRoutes);
+app.use("/login", usersRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
