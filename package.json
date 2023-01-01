@@ -19,6 +19,7 @@
   "homepage": "https://github.com/israeltechchallenge/fs-pet-adoption-be-naelachkar#readme",
   "dependencies": {
     "axios": "^1.2.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

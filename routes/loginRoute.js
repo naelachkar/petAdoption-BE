@@ -1,4 +1,3 @@
-const fs = require("fs");
 const express = require("express");
 const Users = require("../models/usersModels")
 
@@ -21,7 +20,7 @@ router.post("/", async (req, res) => {
         };
         res.json(userInfo);
       } else {
-        res.status(500).send(false);
+        res.status(500).send(false); // TODO Add a message to the front
       }
     } else {
       res.status(500).send(false);

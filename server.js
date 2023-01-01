@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
-const fs = require("fs");
 const cors = require("cors");
 require("dotenv").config();
+const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
 const PORT = process.env.PORT || 8080;
 const URL = process.env.DATABASE_URL;
-const mongoose = require("mongoose");
 const petsRoutes = require("./routes/petsRoutes");
-const usersRoutes = require("./routes/usersRoutes");
+const loginRoute = require("./routes/loginRoute");
 
 mongoose.set("strictQuery", false);
 mongoose.connect(URL);
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/pets", petsRoutes)
-app.use("/login", usersRoutes)
+app.use("/login", loginRoute)
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
