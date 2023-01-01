@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   bio: String,
+  admin: Boolean,
 });
 
 module.exports = mongoose.model("users", userSchema, "users");

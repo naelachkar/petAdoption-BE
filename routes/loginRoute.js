@@ -1,16 +1,16 @@
 const express = require("express");
-const Users = require("../models/usersModels")
-
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const Users = require("../models/usersModels");
 
 router.post("/", async (req, res) => {
   const user = req.body;
   try {
     const users = await Users.find();
     const foundUser = users.find((item) => item.email === user.email);
-    console.log(foundUser);
     if (foundUser) {
-      if (user.password === foundUser.password) {
+      const isPasswordCorrect = await bcrypt.compare(user.password, foundUser.password)
+      if (isPasswordCorrect) {
         const userInfo = {
           firstName: foundUser.firstName,
           lastName: foundUser.lastName,
@@ -20,13 +20,13 @@ router.post("/", async (req, res) => {
         };
         res.json(userInfo);
       } else {
-        res.status(500).send(false); // TODO Add a message to the front
+        res.status(400).send("Invalid email or password");
       }
     } else {
       res.status(500).send(false);
     }
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err);
   }
 });
 
