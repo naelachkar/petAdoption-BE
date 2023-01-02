@@ -9,7 +9,6 @@ const URL = process.env.DATABASE_URL;
 const petsRoutes = require("./routes/petsRoutes");
 const loginRoute = require("./routes/loginRoute");
 const signupRoute = require("./routes/signupRoute");
-const isNewUser = require("./controllers/isNewUser");
 
 mongoose.set("strictQuery", false);
 mongoose.connect(URL);
@@ -22,7 +21,7 @@ app.use(cors());
 
 app.use("/pets", petsRoutes);
 app.use("/login", loginRoute);
-app.use("/signup", isNewUser, signupRoute);
+app.use("/signup", signupRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
