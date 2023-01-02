@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Users = require("../models/usersModels");
+const Users = require("../models/usersModel");
 
 async function doesUserExist(req, res, next) {
   const user = await Users.findOne({ email: req.body.email });

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Pets = require("../models/petsModels");
+const Pets = require("../models/petsModel");
 
 // To retrive pet //TODO must perform the sorting here and not in the front end
 router.get("/", async (req, res) => {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const Users = require("../models/usersModels");
+const Users = require("../models/usersModel");
 
 async function isPasswordCorrect(req, res, next) {
   try {
