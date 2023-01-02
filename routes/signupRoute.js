@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const isNewUser = require("../middlewares/isNewUser");
 const hashingPassword = require("../middlewares/hashingPassword")
-const signup = require("../controllers/signup");
+const signupController = require("../controllers/signupController");
 
-router.post("/", isNewUser, hashingPassword, signup);
+router.post("/", isNewUser, hashingPassword, signupController);
 
 module.exports = router;
