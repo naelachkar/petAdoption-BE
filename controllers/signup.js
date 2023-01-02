@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
 const Users = require("../models/usersModels");
 
 router.post("/", async (req, res) => {
@@ -9,7 +8,7 @@ router.post("/", async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     phoneNumber: req.body.phoneNumber,
-    password: await bcrypt.hash(req.body.password, 10),
+    password: req.body.password,
     bio: "",
     admin: false,
   };
