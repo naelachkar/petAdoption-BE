@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../models/usersModel");
 
-router.post("/", async (req, res) => {
+exports.signup =  async (req, res) => {
   const newUser = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -18,6 +18,4 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.status(400).send(err.message);
   }
-});
-
-module.exports = router;
+};

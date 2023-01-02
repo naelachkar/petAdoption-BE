@@ -4,6 +4,6 @@ const isNewUser = require("../middlewares/isNewUser");
 const hashingPassword = require("../middlewares/hashingPassword")
 const signupController = require("../controllers/signupController");
 
-router.post("/", isNewUser, hashingPassword, signupController);
+router.post("/", isNewUser, hashingPassword, signupController.signup);
 
 module.exports = router;
