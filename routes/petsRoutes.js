@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const petsController = require("../controllers/petsController")
+
+//! to be removed (used only in the controller and possible in the middlewares)
 const Pets = require("../models/petsModel");
 
 // To retrive pet //TODO must perform the sorting here and not in the front end
@@ -13,19 +16,7 @@ router.get("/", async (req, res) => {
 });
 
 // To retrieve a pet by its ID
-router.get("/:id", async (req, res) => {
-  const id = req.params.id.slice(1);
-  try {
-    const pet = await Pets.findById(id);
-    if (pet) {
-      res.json(pet);
-    } else {
-      res.status(404).json({ message: "Pet not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get("/:id", petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
