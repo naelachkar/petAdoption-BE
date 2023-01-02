@@ -4,6 +4,6 @@ const doesUserExist = require("../middlewares/doesUserExist");
 const isPasswordCorrect = require("../middlewares/isPasswordCorrect");
 const loginController = require("../controllers/loginController")
 
-router.post("/", doesUserExist, isPasswordCorrect, loginController);
+router.post("/", doesUserExist, isPasswordCorrect, loginController.login);
 
 module.exports = router;
