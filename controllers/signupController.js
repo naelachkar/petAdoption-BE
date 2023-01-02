@@ -1,6 +1,6 @@
 const Users = require("../models/usersModel");
 
-exports.signup =  async (req, res) => {
+exports.signup = async (req, res) => {
   const newUser = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
