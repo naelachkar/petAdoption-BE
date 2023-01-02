@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Users = require("../models/usersModel");
 
 async function isNewUser(req, res, next) {
