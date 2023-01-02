@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
-const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 8080;
 const URL = process.env.DATABASE_URL;

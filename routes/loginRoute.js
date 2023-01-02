@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Users = require("../models/usersModels");
+const doesUserExist = require("../middlewares/doesUserExist")
 
-router.post("/", async (req, res) => {
+router.post("/", doesUserExist, async (req, res) => {
   const user = req.body;
   try {
     const users = await Users.find();
