@@ -14,7 +14,7 @@ router.put("/:id", () => {});
 
 // Admin only
 // Get all the users
-router.get("/", verifyToken, isAdmin, () => {});
+router.get("/", verifyToken, isAdmin, userController.getAllUsers);
 
 // Get user by their ID full (including pets)
 router.get("/:id/full", () => {});

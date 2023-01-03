@@ -17,3 +17,13 @@ exports.getUserById = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await Users.find();
+    users.forEach(user => user.password = undefined)
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};

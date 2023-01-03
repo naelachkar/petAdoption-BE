@@ -6,7 +6,6 @@ async function isAdmin(req, res, next) {
     res.status(401).send("The user is not an admin");
     return;
   }
-  console.log("admin")
   next();
 }
 
