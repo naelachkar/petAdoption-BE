@@ -14,6 +14,7 @@ async function verifyToken(req, res, next) {
     }
     if (decoded) {
       req.body.userId = decoded.userId;
+      req.body.admin = decoded.admin;
       next();
     }
   });

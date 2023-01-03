@@ -5,7 +5,7 @@ const Users = require("../models/usersModel");
 exports.login = async (req, res) => {
   try {
     const user = await Users.findOne({ email: req.body.email });
-    const token = jwt.sign({ userId: user._id }, TOKEN_KEY);
+    const token = jwt.sign({ userId: user._id, admin: user.admin }, TOKEN_KEY);
     return res.status(201).send({ token });
   } catch (err) {
     res.status(500).send(err);
