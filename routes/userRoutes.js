@@ -6,7 +6,7 @@ const isAdmin = require("../middlewares/isAdmin");
 const userController = require("../controllers/userController")
 
 // Get a user by their ID
-router.get("/:id", verifyToken, doesUserExistById, userController.getUserById);
+router.get("/:id", verifyToken, doesUserExistById, userController.getOwnUserInfo);
 
 // Logged-in only
 // To edit a user (edit own profile)
@@ -17,6 +17,6 @@ router.put("/:id", () => {});
 router.get("/", verifyToken, isAdmin, userController.getAllUsers);
 
 // Get user by their ID full (including pets)
-router.get("/:id/full", () => {});
+router.get("/:id/full", verifyToken, isAdmin, userController.getUserById);
 
 module.exports = router;
