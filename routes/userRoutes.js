@@ -6,10 +6,10 @@ const isAdmin = require("../middlewares/isAdmin");
 const userController = require("../controllers/userController");
 const hashingPassword = require("../middlewares/hashingPassword");
 
-// Get a user by their ID
+// Logged-in only
+// Get a user by their ID (to retrieve own info)
 router.get("/:id", verifyToken, doesUserExistById, userController.getOwnUserInfo);
 
-// Logged-in only
 // To edit a user (edit own profile)
 router.put("/:id", verifyToken, doesUserExistById, hashingPassword, userController.updateUserInfo);
 
