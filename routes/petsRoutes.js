@@ -3,7 +3,7 @@ const router = express.Router();
 const petsController = require("../controllers/petsController")
 
 //! to be removed (used only in the controller and possible in the middlewares)
-const Pets = require("../Schemas/petsModel");
+const Pets = require("../Schemas/petsSchema");
 
 // To retrive pet //TODO must perform the sorting here and not in the front end
 router.get("/", async (req, res) => {

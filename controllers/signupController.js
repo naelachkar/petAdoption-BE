@@ -1,4 +1,4 @@
-const Users = require("../Schemas/usersModel");
+const Users = require("../Schemas/usersSchema");
 
 exports.signup = async (req, res) => {
   const newUser = {

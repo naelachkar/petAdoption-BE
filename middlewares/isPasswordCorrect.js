@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const Users = require("../Schemas/usersModel");
+const Users = require("../Schemas/usersSchema");
 
 async function isPasswordCorrect(req, res, next) {
   try {

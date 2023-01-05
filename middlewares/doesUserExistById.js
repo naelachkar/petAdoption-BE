@@ -1,4 +1,4 @@
-const Users = require("../Schemas/usersModel");
+const Users = require("../Schemas/usersSchema");
 
 async function doesUserExistById(req, res, next) {
   const user = await Users.findOne({ _id: req.body.userId });

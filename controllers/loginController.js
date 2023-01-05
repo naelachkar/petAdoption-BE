@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const TOKEN_KEY = process.env.TOKEN_KEY;
-const Users = require("../Schemas/usersModel");
+const Users = require("../Schemas/usersSchema");
 
 exports.login = async (req, res) => {
   try {
