@@ -1,4 +1,4 @@
-const Pets = require("../models/petsModel");
+const Pets = require("../Schemas/petsModel");
 
 exports.getPetById = async (req, res) => {
   const id = req.params.id.slice(1);

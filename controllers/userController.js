@@ -1,4 +1,4 @@
-const Users = require("../models/usersModel");
+const Users = require("../Schemas/usersModel");
 
 exports.getAllUsers = async (req, res) => {
   try {
