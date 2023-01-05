@@ -5,13 +5,29 @@ const doesUserExistById = require("../middlewares/doesUserExistById");
 const isAdmin = require("../middlewares/isAdmin");
 const userController = require("../controllers/userController");
 const hashingPassword = require("../middlewares/hashingPassword");
+const validateBody = require("../middlewares/validateBody");
+const { editUserSchema } = require("../Schemas/validationSchemas");
+const checkPasswords = require("../middlewares/checkPasswords");
 
 // Logged-in only
 // Get a user by their ID (to retrieve own info)
-router.get("/:id", verifyToken, doesUserExistById, userController.getOwnUserInfo);
+router.get(
+  "/:id",
+  verifyToken,
+  doesUserExistById,
+  userController.getOwnUserInfo
+);
 
 // To edit a user (edit own profile)
-router.put("/:id", verifyToken, doesUserExistById, hashingPassword, userController.updateUserInfo);
+router.put(
+  "/:id",
+  validateBody(editUserSchema),
+  verifyToken,
+  doesUserExistById,
+  checkPasswords,
+  hashingPassword,
+  userController.updateUserInfo
+);
 
 // Admin only
 // Get all the users
