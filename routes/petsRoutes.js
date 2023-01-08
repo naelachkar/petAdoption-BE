@@ -8,7 +8,7 @@ const { idSchema } = require("../Schemas/validationSchemas");
 router.get("/", petsController.searchPets);
 
 // To retrieve a pet by its ID
-router.get("/:id", validate(idSchema, "params"), petsController.getPetById);
+router.get("/:id", validate("params", idSchema), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)

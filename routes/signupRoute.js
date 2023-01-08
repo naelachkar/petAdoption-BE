@@ -7,6 +7,6 @@ const validate = require("../middlewares/validate");
 const { signupSchema } = require("../Schemas/validationSchemas");
 const checkPasswords = require("../middlewares/checkPasswords");
 
-router.post("/", validate(signupSchema, "body"), isNewUser, checkPasswords, hashingPassword, signupController.signup);
+router.post("/", validate("body", signupSchema), isNewUser, checkPasswords, hashingPassword, signupController.signup);
 
 module.exports = router;

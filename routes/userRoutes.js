@@ -21,7 +21,7 @@ router.get(
 // To edit a user (edit own profile)
 router.put(
   "/:id",
-  validate(editUserSchema, "body"),
+  validate("body", editUserSchema),
   verifyToken,
   doesUserExistById,
   checkPasswords,
