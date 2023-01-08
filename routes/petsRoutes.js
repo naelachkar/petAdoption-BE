@@ -6,14 +6,7 @@ const petsController = require("../controllers/petsController")
 const Pets = require("../Schemas/petsSchema");
 
 // To retrive pet //TODO must perform the sorting here and not in the front end
-router.get("/", async (req, res) => {
-  try {
-    const allPets = await Pets.find();
-    res.json(allPets);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.get("/", petsController.searchPets);
 
 // To retrieve a pet by its ID
 router.get("/:id", petsController.getPetById);

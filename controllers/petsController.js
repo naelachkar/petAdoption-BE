@@ -13,3 +13,13 @@ exports.getPetById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.searchPets = async (req, res) => {
+  const queryParams = req.query.query;
+  try {
+    const retrievedPets = await Pets.find(queryParams);
+    res.json(retrievedPets);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
