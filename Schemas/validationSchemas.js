@@ -69,16 +69,15 @@ const searchSchema = {
               type: "string",
             },
           },
+          additionalProperties: false,
         },
         adoptedStatus: { type: "string" },
         height: { type: "number" },
         weight: { type: "string" },
       },
-      additionalProperties: false,
     },
   },
   additionalProperties: false,
-  required: ["query"],
 };
 
 module.exports = {
