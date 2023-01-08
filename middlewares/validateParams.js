@@ -1,9 +1,10 @@
 const Ajv = require("ajv");
 const ajv = new Ajv();
 
-function validateBody(schema) {
+function validateParams(schema) {
   return (req, res, next) => {
-    const valid = ajv.validate(schema, req.body);
+    const { params } = req;
+    const valid = ajv.validate(schema, params);
     if (!valid) {
       return res.status(400).json({ error: ajv.errorsText() });
     }
@@ -11,4 +12,4 @@ function validateBody(schema) {
   };
 }
 
-module.exports = validateBody;
+module.exports = validateParams;

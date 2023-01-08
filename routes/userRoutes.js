@@ -5,7 +5,7 @@ const doesUserExistById = require("../middlewares/doesUserExistById");
 const isAdmin = require("../middlewares/isAdmin");
 const userController = require("../controllers/userController");
 const hashingPassword = require("../middlewares/hashingPassword");
-const validateBody = require("../middlewares/validateBody");
+const validate = require("../middlewares/validate");
 const { editUserSchema } = require("../Schemas/validationSchemas");
 const checkPasswords = require("../middlewares/checkPasswords");
 
@@ -21,7 +21,7 @@ router.get(
 // To edit a user (edit own profile)
 router.put(
   "/:id",
-  validateBody(editUserSchema),
+  validate(editUserSchema, "body"),
   verifyToken,
   doesUserExistById,
   checkPasswords,

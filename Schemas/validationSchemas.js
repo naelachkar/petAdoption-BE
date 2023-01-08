@@ -43,4 +43,13 @@ const editUserSchema = {
   additionalProperties: false,
 };
 
-module.exports = { loginSchema, signupSchema, editUserSchema };
+const idSchema = {
+  type: "object",
+  properties: {
+    id: { type: "string" },
+  },
+  additionalProperties: false,
+  required: ["id"],
+};
+
+module.exports = { loginSchema, signupSchema, editUserSchema, idSchema };

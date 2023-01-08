@@ -3,9 +3,9 @@ const router = express.Router();
 const doesUserExist = require("../middlewares/doesUserExist");
 const isPasswordCorrect = require("../middlewares/isPasswordCorrect");
 const loginController = require("../controllers/loginController");
-const validateBody = require("../middlewares/validateBody");
+const validate = require("../middlewares/validate");
 const { loginSchema } = require("../Schemas/validationSchemas");
 
-router.post("/", validateBody(loginSchema), doesUserExist, isPasswordCorrect, loginController.login);
+router.post("/", validate(loginSchema, "body"), doesUserExist, isPasswordCorrect, loginController.login);
 
 module.exports = router;

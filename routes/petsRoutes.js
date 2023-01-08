@@ -1,15 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const petsController = require("../controllers/petsController")
+const petsController = require("../controllers/petsController");
+const validate = require("../middlewares/validate");
+const { idSchema } = require("../Schemas/validationSchemas");
 
-//! to be removed (used only in the controller and possible in the middlewares)
-const Pets = require("../Schemas/petsSchema");
-
-// To retrive pet //TODO must perform the sorting here and not in the front end
+// To search pets with params
 router.get("/", petsController.searchPets);
 
 // To retrieve a pet by its ID
-router.get("/:id", petsController.getPetById);
+router.get("/:id", validate(idSchema, "params"), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
