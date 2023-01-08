@@ -52,4 +52,39 @@ const idSchema = {
   required: ["id"],
 };
 
-module.exports = { loginSchema, signupSchema, editUserSchema, idSchema };
+const searchSchema = {
+  type: "object",
+  properties: {
+    query: {
+      type: "object",
+      properties: {
+        type: { type: "string" },
+        name: {
+          type: "object",
+          properties: {
+            $regex: {
+              type: "string",
+            },
+            $options: {
+              type: "string",
+            },
+          },
+        },
+        adoptedStatus: { type: "string" },
+        height: { type: "number" },
+        weight: { type: "string" },
+      },
+      additionalProperties: false,
+    },
+  },
+  additionalProperties: false,
+  required: ["query"],
+};
+
+module.exports = {
+  loginSchema,
+  signupSchema,
+  editUserSchema,
+  idSchema,
+  searchSchema,
+};

@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const petsController = require("../controllers/petsController");
 const validate = require("../middlewares/validate");
-const { idSchema } = require("../Schemas/validationSchemas");
+const { idSchema, searchSchema } = require("../Schemas/validationSchemas");
 
 // To search pets with params
-router.get("/", petsController.searchPets);
+router.get("/", validate("query", searchSchema), petsController.searchPets);
 
 // To retrieve a pet by its ID
 router.get("/:id", validate("params", idSchema), petsController.getPetById);
