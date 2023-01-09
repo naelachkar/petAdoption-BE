@@ -1,4 +1,5 @@
 const Pets = require("../Schemas/petsSchema");
+const Users = require("../Schemas/usersSchema");
 
 exports.getPetById = async (req, res) => {
   const id = req.params.id.slice(1);
@@ -22,4 +23,20 @@ exports.searchPets = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};
+
+exports.savePet = async (req, res) => {
+  const { userId } = req.body;
+  const petId = req.params.id.slice(1);
+  try {
+    const updatedUser = await Users.findOneAndUpdate(
+      { _id: userId },
+      { $push: { "pets.savedPets": petId } },
+      { new: true }
+    );
+    console.log(updatedUser);
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

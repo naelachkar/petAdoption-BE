@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const petsController = require("../controllers/petsController");
+const isPetAlreadySaved = require("../middlewares/isPetAlreadySaved");
 const validate = require("../middlewares/validate");
+const verifyToken = require("../middlewares/verifyToken");
 const { idSchema, searchSchema } = require("../Schemas/validationSchemas");
 
 // To search pets with params
@@ -12,25 +14,25 @@ router.get("/:id", validate("params", idSchema), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
-router.post("/:id/adopt", () => {});
+router.post("/:id/adopt", verifyToken, () => {});
 
 // To return a pet (logged-in only)
-router.post("/:id/return", () => {});
+router.post("/:id/return", verifyToken, () => {});
 
 // To save a pet (logged-in only)
-router.post("/:id/save", () => {});
+router.post("/:id/save", verifyToken, isPetAlreadySaved, petsController.savePet);
 
 // To delete a save pet (logged-in only)
-router.delete("/:id/save", () => {});
+router.delete("/:id/save", verifyToken, () => {});
 
 // Admin only
 // To add a pet (admin only)
-router.post("/", () => {});
+router.post("/", verifyToken, () => {});
 
 // To edit a pet (admin only)
-router.put("/:id", () => {});
+router.put("/:id", verifyToken, () => {});
 
 // To get the pets owned or saved by a user
-router.get("/user/:id", () => {});
+router.get("/user/:id", verifyToken, () => {});
 
 module.exports = router;

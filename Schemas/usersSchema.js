@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
   },
   bio: String,
   admin: Boolean,
+  pets: {
+    savedPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
+    adoptedPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
+    fosteredPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
+  },
 });
 
 module.exports = mongoose.model("users", userSchema, "users");
