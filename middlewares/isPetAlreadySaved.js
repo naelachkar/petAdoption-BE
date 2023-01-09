@@ -7,11 +7,12 @@ async function isPetAlreadySaved(req, res, next) {
       _id: req.body.userId,
       "pets.savedPets": petId,
     });
-    if (!isAlready) {
-      next();
+    if (isAlready) {
+      req.body.isAlreadySaved = true;
     } else {
-      res.status(400).send("Pet already saved");
+      req.body.isAlreadySaved = false;
     }
+    next();
   } catch (err) {
     res.send(500).json({ message: err.message });
   }

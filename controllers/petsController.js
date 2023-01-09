@@ -26,6 +26,9 @@ exports.searchPets = async (req, res) => {
 };
 
 exports.savePet = async (req, res) => {
+  if (req.body.isAlreadySaved) {
+    res.status(400).send("Pet already saved");
+  }
   const { userId } = req.body;
   const petId = req.params.id.slice(1);
   try {
@@ -41,8 +44,11 @@ exports.savePet = async (req, res) => {
 };
 
 exports.adoptOrFosterPet = async (req, res) => {
+  if (req.body.isAlreadyOwned) {
+    res.status(400).send(`Pet already ${req.body.isAlreadyOwned}`);
+    return;
+  }
   const { userId, adoptOrFoster } = req.body;
-  console.log(req.body);
   const petId = req.params.id.slice(1);
   try {
     if (adoptOrFoster) {
@@ -51,6 +57,7 @@ exports.adoptOrFosterPet = async (req, res) => {
         { $push: { "pets.adoptedPets": petId } },
         { new: true }
       );
+      //TODO update the pet
       res.status(201).json({ ok: true });
     } else {
       const updatedUser = await Users.findOneAndUpdate(
@@ -58,6 +65,7 @@ exports.adoptOrFosterPet = async (req, res) => {
         { $push: { "pets.fosteredPets": petId } },
         { new: true }
       );
+      //TODO update the pet
       res.status(201).json({ ok: true });
     }
   } catch (err) {

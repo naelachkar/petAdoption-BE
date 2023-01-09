@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const petsController = require("../controllers/petsController");
+const isPetAlreadyOwned = require("../middlewares/isPetAlreadyOwned");
 const isPetAlreadySaved = require("../middlewares/isPetAlreadySaved");
 const validate = require("../middlewares/validate");
 const verifyToken = require("../middlewares/verifyToken");
@@ -14,7 +15,7 @@ router.get("/:id", validate("params", idSchema), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
-router.post("/:id/adopt", verifyToken, petsController.adoptOrFosterPet);
+router.post("/:id/adopt", verifyToken, isPetAlreadyOwned ,petsController.adoptOrFosterPet);
 
 // To return a pet (logged-in only)
 router.post("/:id/return", verifyToken, () => {});
