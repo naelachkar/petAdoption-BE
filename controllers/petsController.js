@@ -34,8 +34,32 @@ exports.savePet = async (req, res) => {
       { $push: { "pets.savedPets": petId } },
       { new: true }
     );
-    console.log(updatedUser);
     res.status(201).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.adoptOrFosterPet = async (req, res) => {
+  const { userId, adoptOrFoster } = req.body;
+  console.log(req.body);
+  const petId = req.params.id.slice(1);
+  try {
+    if (adoptOrFoster) {
+      const updatedUser = await Users.findOneAndUpdate(
+        { _id: userId },
+        { $push: { "pets.adoptedPets": petId } },
+        { new: true }
+      );
+      res.status(201).json({ ok: true });
+    } else {
+      const updatedUser = await Users.findOneAndUpdate(
+        { _id: userId },
+        { $push: { "pets.fosteredPets": petId } },
+        { new: true }
+      );
+      res.status(201).json({ ok: true });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

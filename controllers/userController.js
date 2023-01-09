@@ -35,7 +35,7 @@ exports.updateUserInfo = async (req, res) => {
   const updatedFields = { ...req.body };
   delete updatedFields.userId;
   delete updatedFields.admin;
-  //TODO remove also the pet fields if needed
+  delete updatedFields.pets;
   try {
     const update = await Users.findOneAndUpdate(
       { _id: req.body.userId },

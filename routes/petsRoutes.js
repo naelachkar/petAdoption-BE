@@ -14,7 +14,7 @@ router.get("/:id", validate("params", idSchema), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
-router.post("/:id/adopt", verifyToken, () => {});
+router.post("/:id/adopt", verifyToken, petsController.adoptOrFosterPet);
 
 // To return a pet (logged-in only)
 router.post("/:id/return", verifyToken, () => {});
