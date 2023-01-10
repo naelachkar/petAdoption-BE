@@ -27,8 +27,7 @@ exports.getPetById = async (req, res) => {
 
 exports.adoptOrFosterPet = async (req, res) => {
   if (req.body.isAlreadyOwned) {
-    res.status(400).send(`Pet already ${req.body.isAlreadyOwned}`);
-    return;
+    return res.status(400).send(`Pet already ${req.body.isAlreadyOwned}`);
   }
   const { userId, adoptOrFoster } = req.body;
   const petId = req.params.id.slice(1);
@@ -57,7 +56,7 @@ exports.adoptOrFosterPet = async (req, res) => {
 
 exports.savePet = async (req, res) => {
   if (req.body.isAlreadySaved) {
-    res.status(400).send("Pet already saved");
+    return res.status(400).send("Pet already saved");
   }
   const { userId } = req.body;
   const petId = req.params.id.slice(1);

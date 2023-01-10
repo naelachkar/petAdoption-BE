@@ -18,6 +18,7 @@ router.get("/:id", validate("params", idSchema), petsController.getPetById);
 router.post(
   "/:id/adopt",
   verifyToken,
+  validate("params", idSchema),
   isPetAlreadyOwned,
   petsController.adoptOrFosterPet
 );
@@ -29,6 +30,7 @@ router.post("/:id/return", verifyToken, () => {});
 router.post(
   "/:id/save",
   verifyToken,
+  validate("params", idSchema),
   isPetAlreadySaved,
   petsController.savePet
 );
