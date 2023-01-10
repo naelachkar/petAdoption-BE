@@ -23,6 +23,7 @@ router.get(
 router.put(
   "/:id",
   validate("body", editUserSchema),
+  validate("params", idSchema),
   verifyToken,
   doesUserExistById,
   checkPasswords,

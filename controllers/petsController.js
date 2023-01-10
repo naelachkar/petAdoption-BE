@@ -74,8 +74,9 @@ exports.savePet = async (req, res) => {
 };
 
 exports.getPetsOwnedByUser = async (req, res) => {
+  const userId = req.params.id.slice(1);
   try {
-    const pets = await Users.findById(req.body.userId, "pets")
+    const pets = await Users.findById(userId, "pets")
       .populate("pets.adoptedPets")
       .populate("pets.fosteredPets")
       .populate("pets.savedPets");
@@ -83,4 +84,4 @@ exports.getPetsOwnedByUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};

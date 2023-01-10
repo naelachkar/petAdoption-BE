@@ -44,6 +44,11 @@ router.post("/", verifyToken, () => {});
 router.put("/:id", verifyToken, () => {});
 
 // To get the pets owned or saved by a user
-router.get("/user/:id", verifyToken, petsController.getPetsOwnedByUser);
+router.get(
+  "/user/:id",
+  verifyToken,
+  validate("params", idSchema),
+  petsController.getPetsOwnedByUser
+);
 
 module.exports = router;
