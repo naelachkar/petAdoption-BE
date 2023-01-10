@@ -11,8 +11,9 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.getOwnUserInfo = async (req, res) => {
+  const userID = req.params.id.slice(1);
   try {
-    const user = await Users.findById(req.body.userId);
+    const user = await Users.findById(userID);
     user.password = undefined;
     res.status(200).send(user);
   } catch (err) {

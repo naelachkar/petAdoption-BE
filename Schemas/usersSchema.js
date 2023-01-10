@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+  },
   firstName: {
     type: String,
     required: true,
@@ -21,9 +25,9 @@ const userSchema = new mongoose.Schema({
   bio: String,
   admin: Boolean,
   pets: {
-    savedPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
-    adoptedPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
-    fosteredPets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
+    savedPets: [{ type: mongoose.Types.ObjectId, ref: "pets" }],
+    adoptedPets: [{ type: mongoose.Types.ObjectId, ref: "pets" }],
+    fosteredPets: [{ type: mongoose.Types.ObjectId, ref: "pets" }],
   },
 });
 

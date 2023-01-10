@@ -15,13 +15,23 @@ router.get("/:id", validate("params", idSchema), petsController.getPetById);
 
 // Logged-in only
 // To adopt or foster a pet (logged-in only)
-router.post("/:id/adopt", verifyToken, isPetAlreadyOwned ,petsController.adoptOrFosterPet);
+router.post(
+  "/:id/adopt",
+  verifyToken,
+  isPetAlreadyOwned,
+  petsController.adoptOrFosterPet
+);
 
 // To return a pet (logged-in only)
 router.post("/:id/return", verifyToken, () => {});
 
 // To save a pet (logged-in only)
-router.post("/:id/save", verifyToken, isPetAlreadySaved, petsController.savePet);
+router.post(
+  "/:id/save",
+  verifyToken,
+  isPetAlreadySaved,
+  petsController.savePet
+);
 
 // To delete a save pet (logged-in only)
 router.delete("/:id/save", verifyToken, () => {});
@@ -34,6 +44,6 @@ router.post("/", verifyToken, () => {});
 router.put("/:id", verifyToken, () => {});
 
 // To get the pets owned or saved by a user
-router.get("/user/:id", verifyToken, () => {});
+router.get("/user/:id", verifyToken, petsController.getPetsOwnedByUser);
 
 module.exports = router;

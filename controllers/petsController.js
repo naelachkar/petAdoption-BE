@@ -1,6 +1,16 @@
 const Pets = require("../Schemas/petsSchema");
 const Users = require("../Schemas/usersSchema");
 
+exports.searchPets = async (req, res) => {
+  const queryParams = req.query.query;
+  try {
+    const retrievedPets = await Pets.find(queryParams);
+    res.json(retrievedPets);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.getPetById = async (req, res) => {
   const id = req.params.id.slice(1);
   try {
@@ -12,34 +22,6 @@ exports.getPetById = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
-  }
-};
-
-exports.searchPets = async (req, res) => {
-  const queryParams = req.query.query;
-  try {
-    const retrievedPets = await Pets.find(queryParams);
-    res.json(retrievedPets);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.savePet = async (req, res) => {
-  if (req.body.isAlreadySaved) {
-    res.status(400).send("Pet already saved");
-  }
-  const { userId } = req.body;
-  const petId = req.params.id.slice(1);
-  try {
-    const updatedUser = await Users.findOneAndUpdate(
-      { _id: userId },
-      { $push: { "pets.savedPets": petId } },
-      { new: true }
-    );
-    res.status(201).json({ ok: true });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
   }
 };
 
@@ -72,3 +54,33 @@ exports.adoptOrFosterPet = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.savePet = async (req, res) => {
+  if (req.body.isAlreadySaved) {
+    res.status(400).send("Pet already saved");
+  }
+  const { userId } = req.body;
+  const petId = req.params.id.slice(1);
+  try {
+    const updatedUser = await Users.findOneAndUpdate(
+      { _id: userId },
+      { $push: { "pets.savedPets": petId } },
+      { new: true }
+    );
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getPetsOwnedByUser = async (req, res) => {
+  try {
+    const pets = await Users.findById(req.body.userId, "pets")
+      .populate("pets.adoptedPets")
+      .populate("pets.fosteredPets")
+      .populate("pets.savedPets");
+    res.status(200).send(pets);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
