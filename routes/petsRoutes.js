@@ -24,7 +24,13 @@ router.post(
 );
 
 // To return a pet (logged-in only)
-router.post("/:id/return", verifyToken, () => {});
+router.post(
+  "/:id/return",
+  verifyToken,
+  validate("params", idSchema),
+  isPetAlreadyOwned,
+  petsController.returnPet
+);
 
 // To save a pet (logged-in only)
 router.post(

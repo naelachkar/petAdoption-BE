@@ -60,6 +60,37 @@ exports.adoptOrFosterPet = async (req, res) => {
   }
 };
 
+exports.returnPet = async (req, res) => {
+  if (!req.body.isAlreadyOwned) {
+    return res.status(400).send(`You don't own the pet`);
+  }
+  const { userId, adoptOrFoster } = req.body;
+  const petId = req.params.id.slice(1);
+  try {
+    if (adoptOrFoster) {
+      const updatedUser = await Users.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { "pets.adoptedPets": petId } },
+        { new: true }
+      );
+      res.status(201).json({ ok: true });
+    } else {
+      const updatedUser = await Users.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { "pets.fosteredPets": petId } },
+        { new: true }
+      );
+      res.status(201).json({ ok: true });
+    }
+    const updatedPet = await Pets.findOneAndUpdate(
+      { _id: petId },
+      { adoptionStatus: "Available" }
+    );
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.savePet = async (req, res) => {
   if (req.body.isAlreadySaved) {
     return res.status(400).send("Pet already saved");
