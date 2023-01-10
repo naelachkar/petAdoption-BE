@@ -38,7 +38,10 @@ exports.adoptOrFosterPet = async (req, res) => {
         { $push: { "pets.adoptedPets": petId } },
         { new: true }
       );
-      //TODO update the pet
+      const updatedPet = await Pets.findOneAndUpdate(
+        { _id: petId },
+        { adoptionStatus: "Adopted" }
+      );
       res.status(201).json({ ok: true });
     } else {
       const updatedUser = await Users.findOneAndUpdate(
@@ -46,7 +49,10 @@ exports.adoptOrFosterPet = async (req, res) => {
         { $push: { "pets.fosteredPets": petId } },
         { new: true }
       );
-      //TODO update the pet
+      const updatedPet = await Pets.findOneAndUpdate(
+        { _id: petId },
+        { adoptionStatus: "Fostered" }
+      );
       res.status(201).json({ ok: true });
     }
   } catch (err) {

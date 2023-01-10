@@ -9,6 +9,11 @@ exports.signup = async (req, res) => {
     password: req.body.password,
     bio: "",
     admin: false,
+    pets: {
+      adoptedPets: [],
+      fosteredPets: [],
+      savedPets: [],
+    }
   };
   try {
     const user = await Users.create(newUser);
