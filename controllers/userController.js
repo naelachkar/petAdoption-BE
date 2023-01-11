@@ -11,7 +11,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.getOwnUserInfo = async (req, res) => {
-  const userId = req.params.id.slice(1);
+  const userId = req.params.id;
   try {
     const user = await Users.findById(userId);
     user.password = undefined;
@@ -22,7 +22,7 @@ exports.getOwnUserInfo = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  const userId = req.params.id.slice(1);
+  const userId = req.params.id;
   try {
     const user = await Users.findOne({ _id: userId });
     user.password = undefined;
@@ -33,7 +33,7 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateUserInfo = async (req, res) => {
-  const userId = req.params.id.slice(1);
+  const userId = req.params.id;
   const updatedFields = { ...req.body };
   delete updatedFields.userId;
   delete updatedFields.admin;

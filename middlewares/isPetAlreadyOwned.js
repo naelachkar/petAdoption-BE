@@ -1,7 +1,7 @@
 const Users = require("../Schemas/usersSchema");
 
 async function isPetAlreadyOwned(req, res, next) {
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     const isAlreadyOwned = await Users.findOne({
       _id: req.body.userId,

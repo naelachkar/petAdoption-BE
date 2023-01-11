@@ -1,7 +1,7 @@
 const Users = require("../Schemas/usersSchema");
 
 async function isPetAlreadySaved(req, res, next) {
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     const isAlready = await Users.findOne({
       _id: req.body.userId,

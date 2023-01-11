@@ -12,9 +12,9 @@ exports.searchPets = async (req, res) => {
 };
 
 exports.getPetById = async (req, res) => {
-  const id = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
-    const pet = await Pets.findById(id);
+    const pet = await Pets.findById(petId);
     if (pet) {
       res.json(pet);
     } else {
@@ -30,7 +30,7 @@ exports.adoptOrFosterPet = async (req, res) => {
     return res.status(400).send(`Pet already ${req.body.isAlreadyOwned}`);
   }
   const { userId, adoptOrFoster } = req.body;
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     if (adoptOrFoster) {
       const updatedUser = await Users.findOneAndUpdate(
@@ -65,7 +65,7 @@ exports.returnPet = async (req, res) => {
     return res.status(400).send(`You don't own the pet`);
   }
   const { userId, adoptOrFoster } = req.body;
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     if (adoptOrFoster) {
       const updatedUser = await Users.findOneAndUpdate(
@@ -96,7 +96,7 @@ exports.savePet = async (req, res) => {
     return res.status(400).send("Pet already saved");
   }
   const { userId } = req.body;
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     const updatedUser = await Users.findOneAndUpdate(
       { _id: userId },
@@ -114,7 +114,7 @@ exports.deleteSavedPet = async (req, res) => {
     return res.status(400).send("Pet not already saved");
   }
   const { userId } = req.body;
-  const petId = req.params.id.slice(1);
+  const petId = req.params.id;
   try {
     const updatedUser = await Users.findOneAndUpdate(
       { _id: userId },
@@ -128,7 +128,7 @@ exports.deleteSavedPet = async (req, res) => {
 }
 
 exports.getPetsOwnedByUser = async (req, res) => {
-  const userId = req.params.id.slice(1);
+  const userId = req.params.id;
   try {
     const pets = await Users.findById(userId, "pets")
       .populate("pets.adoptedPets")
