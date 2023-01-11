@@ -42,7 +42,13 @@ router.post(
 );
 
 // To delete a save pet (logged-in only)
-router.delete("/:id/save", verifyToken, () => {});
+router.delete(
+  "/:id/save",
+  verifyToken,
+  validate("params", idSchema),
+  isPetAlreadySaved,
+  petsController.deleteSavedPet
+);
 
 // Admin only
 // To add a pet (admin only)

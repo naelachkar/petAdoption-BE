@@ -109,6 +109,24 @@ exports.savePet = async (req, res) => {
   }
 };
 
+exports.deleteSavedPet = async (req, res) => {
+  if (!req.body.isAlreadySaved) {
+    return res.status(400).send("Pet not already saved");
+  }
+  const { userId } = req.body;
+  const petId = req.params.id.slice(1);
+  try {
+    const updatedUser = await Users.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { "pets.savedPets": petId } },
+      { new: true }
+    );
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
 exports.getPetsOwnedByUser = async (req, res) => {
   const userId = req.params.id.slice(1);
   try {
