@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const petsController = require("../controllers/petsController");
+const { upload } = require("../middlewares/handleImage");
+const isAdmin = require("../middlewares/isAdmin");
 const isPetAlreadyOwned = require("../middlewares/isPetAlreadyOwned");
 const isPetAlreadySaved = require("../middlewares/isPetAlreadySaved");
 const validate = require("../middlewares/validate");
@@ -55,7 +57,7 @@ router.delete(
 router.post("/", verifyToken, () => {});
 
 // To edit a pet (admin only)
-router.put("/:id", verifyToken, () => {});
+router.put("/:id", verifyToken, isAdmin, upload.single("picture"), petsController.editPet);
 
 // To get the pets owned or saved by a user
 router.get(

@@ -35,6 +35,7 @@ exports.getUserById = async (req, res) => {
 exports.updateUserInfo = async (req, res) => {
   const userId = req.params.id;
   const updatedFields = { ...req.body };
+  console.log(updatedFields);
   delete updatedFields.userId;
   delete updatedFields.admin;
   delete updatedFields.pets;

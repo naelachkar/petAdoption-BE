@@ -125,7 +125,7 @@ exports.deleteSavedPet = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};
 
 exports.getPetsOwnedByUser = async (req, res) => {
   const userId = req.params.id;
@@ -138,4 +138,12 @@ exports.getPetsOwnedByUser = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+};
+
+exports.editPet = async (req, res) => {
+  // console.log("req.body", req.body);
+  // console.log(req.params.id);
+  console.log(req.body)
+  console.log(req.file)
+
 };
