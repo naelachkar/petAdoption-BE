@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const userController = require("../controllers/userController");
 const verifyToken = require("../middlewares/verifyToken");
 const doesUserExistById = require("../middlewares/doesUserExistById");
 const isAdmin = require("../middlewares/isAdmin");
-const userController = require("../controllers/userController");
 const hashingPassword = require("../middlewares/hashingPassword");
 const validate = require("../middlewares/validate");
-const { editUserSchema, idSchema } = require("../Schemas/validationSchemas");
 const checkPasswords = require("../middlewares/checkPasswords");
+const isEmailUnique = require("../middlewares/isEmailUnique");
+const { editUserSchema, idSchema } = require("../Schemas/validationSchemas");
 
 // Logged-in only
 // Get a user by their ID (to retrieve own info)
@@ -26,6 +27,7 @@ router.put(
   validate("params", idSchema),
   verifyToken,
   doesUserExistById,
+  isEmailUnique,
   checkPasswords,
   hashingPassword,
   userController.updateUserInfo
