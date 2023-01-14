@@ -33,23 +33,23 @@ exports.adoptOrFosterPet = async (req, res) => {
   const petId = req.params.id;
   try {
     if (adoptOrFoster) {
-      const updatedUser = await Users.findOneAndUpdate(
+      const newInfoUser = await Users.findOneAndUpdate(
         { _id: userId },
         { $push: { "pets.adoptedPets": petId } },
         { new: true }
       );
-      const updatedPet = await Pets.findOneAndUpdate(
+      const newInfoPet = await Pets.findOneAndUpdate(
         { _id: petId },
         { adoptionStatus: "Adopted" }
       );
       res.status(201).json({ ok: true });
     } else {
-      const updatedUser = await Users.findOneAndUpdate(
+      const newInfoUser = await Users.findOneAndUpdate(
         { _id: userId },
         { $push: { "pets.fosteredPets": petId } },
         { new: true }
       );
-      const updatedPet = await Pets.findOneAndUpdate(
+      const newInfoPet = await Pets.findOneAndUpdate(
         { _id: petId },
         { adoptionStatus: "Fostered" }
       );
@@ -68,21 +68,21 @@ exports.returnPet = async (req, res) => {
   const petId = req.params.id;
   try {
     if (adoptOrFoster) {
-      const updatedUser = await Users.findOneAndUpdate(
+      const newInfoUser = await Users.findOneAndUpdate(
         { _id: userId },
         { $pull: { "pets.adoptedPets": petId } },
         { new: true }
       );
       res.status(201).json({ ok: true });
     } else {
-      const updatedUser = await Users.findOneAndUpdate(
+      const newInfoUser = await Users.findOneAndUpdate(
         { _id: userId },
         { $pull: { "pets.fosteredPets": petId } },
         { new: true }
       );
       res.status(201).json({ ok: true });
     }
-    const updatedPet = await Pets.findOneAndUpdate(
+    const newInfoPet = await Pets.findOneAndUpdate(
       { _id: petId },
       { adoptionStatus: "Available" }
     );
@@ -98,7 +98,7 @@ exports.savePet = async (req, res) => {
   const { userId } = req.body;
   const petId = req.params.id;
   try {
-    const updatedUser = await Users.findOneAndUpdate(
+    const newInfoUser = await Users.findOneAndUpdate(
       { _id: userId },
       { $push: { "pets.savedPets": petId } },
       { new: true }
@@ -116,7 +116,7 @@ exports.deleteSavedPet = async (req, res) => {
   const { userId } = req.body;
   const petId = req.params.id;
   try {
-    const updatedUser = await Users.findOneAndUpdate(
+    const newInfoUser = await Users.findOneAndUpdate(
       { _id: userId },
       { $pull: { "pets.savedPets": petId } },
       { new: true }
@@ -141,9 +141,16 @@ exports.getPetsOwnedByUser = async (req, res) => {
 };
 
 exports.editPet = async (req, res) => {
-  // console.log("req.body", req.body);
-  // console.log(req.params.id);
-  console.log(req.body)
-  console.log(req.file)
-
+  const newInfo = { ...req.body };
+  newInfo.picture = req.file.path;
+  try {
+    const update = await Pets.findOneAndUpdate(
+      { _id: req.params.id },
+      newInfo,
+      { new: true }
+    );
+    res.status(201).send(update);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };
