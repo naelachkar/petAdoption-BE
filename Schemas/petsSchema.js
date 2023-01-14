@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const petSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
@@ -12,10 +8,12 @@ const petSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+    default: "Dog",
   },
   adoptionStatus: {
     type: String,
     required: true,
+    default: "Available",
   },
   picture: String,
   height: Number,
@@ -23,7 +21,6 @@ const petSchema = new mongoose.Schema({
   color: String,
   bio: String,
   hypoallergenic: Boolean,
-  dietery: Array,
   breed: String,
 });
 

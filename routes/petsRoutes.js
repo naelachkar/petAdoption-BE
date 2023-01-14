@@ -54,10 +54,22 @@ router.delete(
 
 // Admin only
 // To add a pet (admin only)
-router.post("/", verifyToken, () => {});
+router.post(
+  "/",
+  verifyToken,
+  isAdmin,
+  upload.single("picture"),
+  petsController.addPet
+);
 
 // To edit a pet (admin only)
-router.put("/:id", verifyToken, isAdmin, upload.single("picture"), petsController.editPet);
+router.put(
+  "/:id",
+  verifyToken,
+  isAdmin,
+  upload.single("picture"),
+  petsController.editPet
+);
 
 // To get the pets owned or saved by a user
 router.get(

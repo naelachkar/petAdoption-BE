@@ -140,9 +140,24 @@ exports.getPetsOwnedByUser = async (req, res) => {
   }
 };
 
+exports.addPet = async (req, res) => {
+  const newPet = { ...req.body };
+  if (req.file?.path) {
+    newPet.picture = req.file.path;
+  }
+  try {
+    const addedPet = await Pets.create(newPet);
+    res.status(201).send(addedPet);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 exports.editPet = async (req, res) => {
   const newInfo = { ...req.body };
-  newInfo.picture = req.file.path;
+  if (req.file?.path) {
+    newInfo.picture = req.file.path;
+  }
   try {
     const update = await Pets.findOneAndUpdate(
       { _id: req.params.id },
