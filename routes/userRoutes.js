@@ -17,7 +17,7 @@ router.get(
   validate("params", idSchema),
   verifyToken,
   doesUserExistById,
-  userController.getOwnUserInfo
+  userController.getUserById
 );
 
 // To edit a user (edit own profile)
@@ -43,7 +43,7 @@ router.get(
   validate("params", idSchema),
   verifyToken,
   isAdmin,
-  userController.getUserById
+  userController.getUserByIdFull
 );
 
 module.exports = router;

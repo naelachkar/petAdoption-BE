@@ -10,7 +10,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.getOwnUserInfo = async (req, res) => {
+exports.getUserById = async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await Users.findById(userId);
@@ -21,10 +21,13 @@ exports.getOwnUserInfo = async (req, res) => {
   }
 };
 
-exports.getUserById = async (req, res) => {
+exports.getUserByIdFull = async (req, res) => {
   const userId = req.params.id;
   try {
-    const user = await Users.findOne({ _id: userId });
+    const user = await Users.findById(userId)
+      .populate("pets.adoptedPets")
+      .populate("pets.fosteredPets")
+      .populate("pets.savedPets");
     user.password = undefined;
     res.status(200).send(user);
   } catch (err) {
@@ -51,3 +54,18 @@ exports.updateUserInfo = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+// exports.getUserById = async (req, res) => {
+//   const userId = req.params.id;
+//   try {
+//     const user = await Users.findOne({ _id: userId });
+//     user.password = undefined;
+//     res.status(200).send(user);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// };
+
+// .populate("pets.adoptedPets")
+// .populate("pets.fosteredPets")
+// .populate("pets.savedPets");
