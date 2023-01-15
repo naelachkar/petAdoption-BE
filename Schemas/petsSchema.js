@@ -20,7 +20,7 @@ const petSchema = new mongoose.Schema({
   weight: Number,
   color: String,
   bio: String,
-  hypoallergenic: Boolean,
+  hypoallergenic: { type: Boolean, default: false },
   breed: String,
 });
 
