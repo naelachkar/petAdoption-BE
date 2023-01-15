@@ -72,7 +72,7 @@ const searchSchema = {
           additionalProperties: false,
         },
         adoptedStatus: { type: "string" },
-        height: { type: "number" },
+        height: { type: "string" },
         weight: { type: "string" },
       },
     },
