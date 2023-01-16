@@ -7,7 +7,12 @@ const isPetAlreadyOwned = require("../middlewares/isPetAlreadyOwned");
 const isPetAlreadySaved = require("../middlewares/isPetAlreadySaved");
 const validate = require("../middlewares/validate");
 const verifyToken = require("../middlewares/verifyToken");
-const { idSchema, searchSchema } = require("../Schemas/validationSchemas");
+const {
+  idSchema,
+  searchSchema,
+  addPetSchema,
+  editPetSchema,
+} = require("../Schemas/validationSchemas");
 
 // To search pets with params
 router.get("/", validate("query", searchSchema), petsController.searchPets);
@@ -56,6 +61,7 @@ router.delete(
 // To add a pet (admin only)
 router.post(
   "/",
+  validate("body", addPetSchema),
   verifyToken,
   isAdmin,
   upload.single("picture"),
@@ -65,9 +71,10 @@ router.post(
 // To edit a pet (admin only)
 router.put(
   "/:id",
+  upload.single("picture"),
+  validate("body", editPetSchema),
   verifyToken,
   isAdmin,
-  upload.single("picture"),
   petsController.editPet
 );
 

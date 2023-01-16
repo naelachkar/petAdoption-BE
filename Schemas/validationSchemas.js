@@ -80,10 +80,41 @@ const searchSchema = {
   additionalProperties: false,
 };
 
+const addPetSchema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    type: { type: "string" },
+    breed: { type: "string" },
+    color: { type: "string" },
+    height: { type: "string" },
+    weight: { type: "string" },
+    bio: { type: "string" },
+    image: { type: "string" },
+  },
+  required: ["name", "type", "breed", "color", "height", "weight", "image"],
+};
+
+const editPetSchema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    type: { type: "string" },
+    breed: { type: "string" },
+    color: { type: "string" },
+    height: { type: "string" },
+    weight: { type: "string" },
+    bio: { type: "string" },
+    image: { type: "string" },
+  },
+};
+
 module.exports = {
   loginSchema,
   signupSchema,
   editUserSchema,
   idSchema,
   searchSchema,
+  addPetSchema,
+  editPetSchema,
 };
