@@ -13,11 +13,19 @@ const userRoutes = require("./routes/userRoutes");
 mongoose.set("strictQuery", false);
 mongoose.connect(URL);
 const db = mongoose.connection;
-db.on("error", (error) => console.error(error)); 
+db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://fs-pet-adoption.vercel.app",
+      "https://fs-pet-adoption-naelachkar.vercel.app",
+      "https://fs-pet-adoption-git-main-naelachkar.vercel.app",
+    ],
+  })
+);
 
 app.use("/signup", signupRoute);
 app.use("/login", loginRoute);
