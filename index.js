@@ -17,15 +17,7 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "https://fs-pet-adoption.vercel.app",
-      "https://fs-pet-adoption-naelachkar.vercel.app",
-      "https://fs-pet-adoption-git-main-naelachkar.vercel.app",
-    ],
-  })
-);
+app.use(cors());
 
 app.use("/signup", signupRoute);
 app.use("/login", loginRoute);
