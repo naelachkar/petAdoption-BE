@@ -90,9 +90,9 @@ const addPetSchema = {
     height: { type: "string" },
     weight: { type: "string" },
     bio: { type: "string" },
-    image: { type: "string" },
+    picture: { type: "string" },
   },
-  required: ["name", "type", "breed", "color", "height", "weight", "image"],
+  required: ["name", "type", "breed", "color", "height", "weight"],
 };
 
 const editPetSchema = {
@@ -105,7 +105,7 @@ const editPetSchema = {
     height: { type: "string" },
     weight: { type: "string" },
     bio: { type: "string" },
-    image: { type: "string" },
+    picture: { type: "string" },
   },
 };
 

@@ -61,10 +61,10 @@ router.delete(
 // To add a pet (admin only)
 router.post(
   "/",
+  upload.single("picture"),
   validate("body", addPetSchema),
   verifyToken,
   isAdmin,
-  upload.single("picture"),
   petsController.addPet
 );
 
